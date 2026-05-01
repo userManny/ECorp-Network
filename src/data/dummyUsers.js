@@ -1,4 +1,4 @@
-const users=[
+const usersData=[
     {id:1,
      name:"Walter O Brian",
      plan:"300mbps",
@@ -38,4 +38,4 @@ const users=[
     
 ]
 
-export default users;
+export default usersData;

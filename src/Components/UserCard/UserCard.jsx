@@ -1,14 +1,17 @@
+import "./UserCard.css";
 
-
-function UserCard({name,plan,bill,paid}){
+function UserCard({name,plan,bill,paid,onMarkPaid}){
 
     return(
         <>
         <div className="card">
-               <h3>{name}</h3>
+        <h3>{name}</h3>
         <p>{plan}</p>
-        <p>{bill}</p>
-        <p>{paid? "paid":"Due"}</p>
+        <p>₹{bill}</p>
+        <p>{paid? "Paid":"Due"}</p>
+        <button onClick={onMarkPaid}>
+           Mark as Paid
+             </button>
 
         </div>
        
