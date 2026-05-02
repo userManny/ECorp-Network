@@ -8,7 +8,7 @@ import "./Users.css";
 function Users(){
     const [users,setUsers]=useState(usersData);
     const [showUnpaid,setShowUnpaid]=useState(false);
-    const [searchTerm,setSearchTerm]=useState("");  // state for seach 
+    const [searchTerm,setSearchTerm]=useState("");  // state for search bar 
 
     //  code to filter for mark as Paid button 
     // const filterdUser= showUnpaid ? users.filter(user=>!user.paid) :users;
@@ -41,7 +41,7 @@ function Users(){
                onChange={(e)=>setSearchTerm(e.target.value)} />
 
         <div className="users-container">
-            {filterdUser.map(user=>{
+            {filterdUsers.map(user=>{
                 return(
                 <UserCard 
                 key={user.id}
