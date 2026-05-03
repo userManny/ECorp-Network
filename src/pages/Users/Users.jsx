@@ -1,19 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserCard from "../../Components/UserCard/UserCard.jsx";
 import DashboardStats from "../../Components/DashboardStats/DashboardStats.jsx";
 import usersData from "../../data/dummyUsers.js";
 import "./Users.css";
 
 
-function Users(){
-    const [users,setUsers]=useState(usersData);
+function Users({users,setUsers}){
+   // const [users,setUsers]=useState([]); // using [] instead of usersData as now we are taking data from API call and not dummyData 
     const [showUnpaid,setShowUnpaid]=useState(false);
     const [searchTerm,setSearchTerm]=useState("");  // state for search bar 
 
+    
+
+
     //  code to filter for mark as Paid button 
     // const filterdUser= showUnpaid ? users.filter(user=>!user.paid) :users;
-
-    const filterdUsers= users.filter(user=>
+        const filterdUsers= users.filter(user=>
         showUnpaid? !user.paid :true
     ).filter(user=>user.name.toLowerCase().includes(searchTerm.toLowerCase()) );
 

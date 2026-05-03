@@ -1,0 +1,123 @@
+React = run functions → show UI → run side effects → repeat when data changes
+        (Components)  (return jsx)  (useEffect)      (state change, props change, parent re-render)
+
+
+
+Re-render = same component runs again
+Mount = new component appears
+Unmount = component removed
+
+
+1. Render ( run component function)
+👉 “React runs your component function and builds UI”
+
+2. Mount ( first time show)
+👉 “Component appears on screen for the FIRST time”
+
+3.Update (re-render after change)   
+👉 “Component runs again because state/props changed”
+👉 Only these causes re-render: state change (useState), props change, parent re-render
+
+4. 🔹 Unmount (removed from UI i.e, cleanup runs ) => Handled inside useEffect using cleanup function
+👉 “Component is removed from screen”
+👉 Cleanup ALSO runs before next effect (if deps change)
+    Cleanup is used for: clearing timers, removing event listeners, stopping subscriptions
+   useEffect(() => {
+     console.log("Mounted");
+
+     return () => {
+    console.log("Unmounted");
+    };
+    }, []);
+
+
+
+5. 👉 Component LifeCycle
+a. Mount → first time shown
+b. Update → re-render when state/props change
+c. Unmount → removed from screen
+
+
+Component tree :
+main.jsx runs                                         main.jsx
+↓                                                         ↓
+React loads App.jsx                                   App.jsx
+↓                                                         ↓
+App.jsx renders                                    Users.jsx/Dashboard.jsx
+↓                                                         ↓
+App returns JSX (UI)                             UserCard.jsx/DashboardStats.jsx
+↓
+Child components render
+↓
+UI shows on screen (mount complete)
+
+
+7.  🔹 useEffect = "Run this AFTER render (not during render)" 
+ 👉useEffect runs after render.
+    On mount (first render) it always runs.
+    On updates, it runs depending on dependency array.
+    If it updates state → component re-renders.
+    First render=> useEffect run
+    Re-render => depends on dependency array (,[],[x]) 
+👉SYNTAX   useEffect(() => {
+    // side effect code (API, timers, logs, subscriptions)
+
+    return () => {
+    // cleanup (runs on unmount or before next effect)
+  };
+}, [dependencies]);
+
+
+
+
+8. Routing => Routing in React is a way to render different components based on the URL without reloading the page, using libraries like react-router.
+Routes decide which component to show based on URL (make multipage site)
+without routing=> SPA(Single Page Application with no Navigation).
+
+<Routes>
+  <Route path="/home" element={<Home />} />
+  <Route path="/about" element={<About />} />
+</Routes>
+
+
+a. <Routes> </Routes>  container that holds all routes
+
+<Routes> 
+ 
+ b. Route Define Mapping (URL path → Component)
+    < Route path="/users" element={<Users />} />
+
+c path 👉 URL
+  /users
+  /dashboard
+
+d.element  👉 What to render 
+   element={<Users />}
+
+User enters URL
+↓
+React Router matches path
+↓
+Corresponding component renders
+↓
+Other components NOT rendered
+
+Imp point 
+1. Routes are matched EXACTLY  e.g <Route path="/" ... />   👉 Matches only /
+2.First matching route is used 👉 Order matters sometimes
+3. First matching route is used
+3.Components re-render on route change
+  👉 Because: URL change → React re-renders route tree
+4.State is NOT shared automatically
+👉 Each route/component is independent
+👉 You solved this using state lifting ✅
+
+5. ✅ 🧠 Nested routes
+<Route path="/dashboard" element={<Dashboard />}>
+  <Route path="stats" element={<Stats />} />
+</Route>
+     👉 URL:
+         /dashboard/stats
+
+6. 🚀 404 Route
+<Route path="*" element={<h1>Page Not Found</h1>} />

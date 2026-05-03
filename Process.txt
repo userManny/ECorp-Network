@@ -1,0 +1,34 @@
+1. use dummyData(id,name,bill,plan, paid ) => then use API(free) API data (id,name,email,phone) , 
+so to make it work change kiya API data in useEffect bill use Math.random() , paid:id%2 ===0 etc
+Now Did this for Dashboard and Users pages seperately [could also sue context API] but Math.random() giving different result on Dashboard and Users page
+then change it to make data consistent.
+
+2. Initially state users defined in Users.jsx and 
+3. React creates new independent state per component (read more)
+4. React shares state only through props (or context) , not automatically.
+
+Scenario	               Result
+State in each component	   ❌ separate copies
+State in parent + props	   ✅ shared
+No props	               ❌ not accessible
+
+5. Lifting state up:  Move shared data to a common parent
+so multiple components can use the SAME data
+Common parent” means:
+👉 The nearest component that renders BOTH Users and Dashboard
+
+6. useEffect runs when the component renders (mounts or updates)
+A. RUn once (for API)    => RUn only when component mounts(first render)                            
+useEffect(() => {
+  // API call
+}, []);
+
+B. Run on Every render   =>Run on every render (not recommended usually)
+useEffect(() => {
+  // runs every time
+});
+
+C.Run when something changes  =>Run on mount + whenever "users" updates
+useEffect(() => {
+  // runs when users changes
+}, [users]);
