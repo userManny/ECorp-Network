@@ -1,16 +1,159 @@
-# React + Vite
+## 🌐 Live Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- 🔗 [Live App](https://e-corp-network.vercel.app/)
+- 💻 [GitHub Repo](https://github.com/your-username/ecorp-network)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# 🌐 ECorp Network
 
-## React Compiler
+A React-based web application designed to manage customers of an Internet Service Provider (ISP), including tracking subscription plans, billing status, and payments. The platform provides a centralized dashboard for monitoring total users, revenue, and pending dues. It enables efficient user management with real-time updates and insights.
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Features
 
-## Expanding the ESLint configuration
+### 🧭 Navigation & Routing
+- Built using **React Router**
+- Pages:
+  - `/dashboard` → Dashboard view
+  - `/users` → Users management page
+- Default route redirects to dashboard
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+### 👥 Users Page
+- Display users in card format
+- Search users by name
+- Filter unpaid users
+- Mark users as **Paid**
+- Dynamic data rendering
+
+---
+
+### 📊 Dashboard
+- Shows:
+  - Total Users
+  - Total Revenue
+  - Pending Amount
+- Updates automatically when user data changes
+
+---
+
+### 🔄 State Management (Important)
+- **State Lifting implemented**
+- `users` state is managed in `App.jsx`
+- Shared across:
+  - Users page (read + update)
+  - Dashboard (read only)
+
+---
+
+### 🌐 API Integration
+- Fetch users from API
+- Transform API data into app-specific structure
+- Fallback to dummy data if API fails
+
+---
+
+## 🧠 Key Concepts Used
+
+### 🔹 React Concepts
+- Functional Components
+- Props & State
+- useState, useEffect
+- Conditional Rendering
+- Component Reusability
+
+---
+
+### 🔹 Advanced Concepts
+- State Lifting (Single Source of Truth)
+- Data Transformation
+- Controlled Inputs (Search)
+- Derived State (Dashboard stats)
+
+---
+
+### 🔹 Routing
+- React Router v6
+- `<Routes>` and `<Route>`
+- Navigation using `<Link>`
+- Default route handling
+
+---
+
+## 🏗️ Project Structure
+
+'''
+src/
+│
+├── Components/
+│ ├── Navbar/
+│ ├── UserCard/
+│ └── DashboardStats/
+│
+├── pages/
+│ ├── Users/
+│ └── Dashboard/
+│
+├── data/
+│ └── dummyUsers.js
+│
+├── App.jsx
+└── main.jsx
+
+'''
+
+
+---
+
+## 🔄 Data Flow
+
+App.jsx (state owner)  
+↓  
+Users.jsx (update state)  
+↓  
+Dashboard.jsx (read state)  
+
+---
+
+## ⚙️ Installation
+
+```bash
+git clone <https://github.com/userManny/ECorp-Network.git>
+cd ecorp-network
+npm install
+npm run dev
+
+## 📌 How It Works
+
+- App loads → API fetch runs  
+- Users state stored in `App.jsx`  
+- Data passed to **Users** and **Dashboard**  
+- Updating user (mark as paid) updates entire app  
+
+---
+
+## ⚠️ Important Learnings
+
+- React does **NOT** share state automatically  
+- Re-render happens when:
+  - State changes  
+  - Props change  
+  - Parent re-renders  
+- Route change causes **mount/unmount**  
+
+---
+
+## 🔥 Future Improvements
+
+- Add / Edit / Delete users (CRUD)  
+- Authentication system  
+- Backend integration  
+- Global state (Context API)  
+- Charts for dashboard  
+
+---
+
+## 🧑‍💻 Author
+
+**Maneesh Kumar**
