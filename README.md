@@ -1,12 +1,11 @@
-## 🌐 Live Demo
 
 - 🔗 [Live App](https://e-corp-network.vercel.app/)
 - 💻 [GitHub Repo](https://github.com/your-username/ecorp-network)
 
 
-# 🌐 ECorp Network
+## 🌐 ECorp Network
 
-A React-based web application designed to manage customers of an Internet Service Provider (ISP), including tracking subscription plans, billing status, and payments. The platform provides a centralized dashboard for monitoring total users, revenue, and pending dues. It enables efficient user management with real-time updates and insights.
+- A React-based web application designed to manage customers of an Internet Service Provider (ISP), including tracking subscription plans, billing status, and payments. The platform provides a centralized dashboard for monitoring total users, revenue, and pending dues. It enables efficient user management with real-time updates and insights.
 ---
 
 ## 🚀 Features
@@ -83,7 +82,7 @@ A React-based web application designed to manage customers of an Internet Servic
 
 ## 🏗️ Project Structure
 
-'''
+```
 src/
 │
 ├── Components/
@@ -101,7 +100,7 @@ src/
 ├── App.jsx
 └── main.jsx
 
-'''
+```
 
 
 ---
@@ -119,10 +118,12 @@ Dashboard.jsx (read state)
 ## ⚙️ Installation
 
 ```bash
-git clone <https://github.com/userManny/ECorp-Network.git>
+git clone https://github.com/userManny/ECorp-Network.git
 cd ecorp-network
 npm install
 npm run dev
+
+```
 
 ## 📌 How It Works
 
