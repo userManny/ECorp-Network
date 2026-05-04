@@ -48,6 +48,7 @@ function Users({users,setUsers}){
                 <UserCard 
                 key={user.id}
                 name={user.name}
+                email={user.email}
                 plan={user.plan}
                 bill={user.bill}
                 paid={user.paid}
