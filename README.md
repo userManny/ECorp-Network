@@ -1,6 +1,6 @@
 
 - 🔗 [Live App](https://e-corp-network.vercel.app/)
-- 💻 [GitHub Repo](https://github.com/your-username/ecorp-network)
+- 💻 [GitHub Repo](https://github.com/userManny/ECorp-Network)
 
 
 ## 🌐 ECorp Network

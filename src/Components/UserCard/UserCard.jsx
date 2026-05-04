@@ -13,7 +13,7 @@ function UserCard({name,email,phone,plan,bill,paid,onMarkPaid}){
         <button onClick={onMarkPaid}
         className={paid? "paid-btn":"unpaid-btn"}
         >
-        {paid?"Paid":"Mark as Paid"}
+        {paid?"Payment Received":"Mark as Paid"}
              </button>
 
         </div>
