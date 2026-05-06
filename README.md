@@ -40,6 +40,8 @@
 - Delete users with confirmation popup
 - Dynamic plan-based billing generation
 - Real-time UI updates using React state
+- Persistent user data using Local Storage
+- Reset functionality to restore default application data
 ---
 
 ### 📊 Dashboard
@@ -178,7 +180,8 @@ npm run dev
 - Data passed to **Users** and **Dashboard**  
 - CRUD operations update shared application state
 - Dashboard statistics update automatically in real-time
-- User creation and deletion instantly re-render the UI  
+- User creation and deletion instantly re-render the UI
+- User changes persist after refresh using Local Storage 
 
 ---
 
@@ -195,7 +198,6 @@ npm run dev
 
 ## 🔥 Future Improvements
  
-- Local Storage persistence
 - Full Edit User functionality
 - Authentication & Authorization
 - Backend integration (Node.js / Express / MongoDB)
