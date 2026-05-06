@@ -5,7 +5,7 @@
 
 ## 🌐 ECorp Network
 
-- A React-based ISP management dashboard designed to manage customers, subscription plans, billing, and payment status. The application features a centralized admin dashboard with dynamically updated statistics, dynamic user management, API integration, and complete frontend CRUD operations. It demonstrates scalable React architecture using component-based design, lifted state management, controlled forms, and dynamic UI rendering.
+- A React-based ISP management dashboard designed to manage customers, subscription plans, billing, and payment status. The application features a centralized admin dashboard with dynamically updated statistics, dynamic user management, API integration, and complete frontend CRUD operations with reusable form handling and persistent local storage support. It demonstrates scalable React architecture using component-based design, lifted state management, controlled forms, and dynamic UI rendering.
 ---
 
 ## 📸 Preview
@@ -37,6 +37,7 @@
 - Filter unpaid users
 - Mark users as **Paid**
 - Add new users using controlled forms
+- Edit existing user details using reusable forms
 - Delete users with confirmation popup
 - Dynamic plan-based billing generation
 - Real-time UI updates using React state
@@ -58,7 +59,7 @@ Implemented complete frontend CRUD functionality:
 
 - **Create** → Add new users dynamically
 - **Read** → Display and search user data
-- **Update** → Update payment status
+- **Update** → Edit user details and update payment status
 - **Delete** → Remove users with confirmation dialog
 
 ---
@@ -98,6 +99,7 @@ Implemented complete frontend CRUD functionality:
 - Conditional Rendering
 - Dynamic Form Handling
 - Derived State (Dashboard stats)
+- Reusable Add/Edit Form Logic
 
 ---
 
@@ -198,7 +200,6 @@ npm run dev
 
 ## 🔥 Future Improvements
  
-- Full Edit User functionality
 - Authentication & Authorization
 - Backend integration (Node.js / Express / MongoDB)
 - Data visualization charts
