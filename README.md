@@ -157,7 +157,7 @@ Dashboard.jsx (read state)
 
 The application is deployed on **Vercel**.
 
-🔗 Live Demo: https://e-corp-network.vercel.app/
+
 ---
 
 
