@@ -1,3 +1,29 @@
+ Batching (React State Update Scheduling)
+setState() does NOT immediately change state.
+React schedules a re-render first.
+Updated state becomes available in the NEXT render cycle.
+State updates are asynchronous/scheduled in React.
+
+for e.g const [count, setCount] = useState(0);
+
+    function increase(){
+       console.log(count);
+
+         setCount(count + 1);
+
+           console.log(count);
+          }
+
+          output: 0 
+                  0  
+                  not 0
+                      1
+
+
+
+
+
+
 React = run functions → show UI → run side effects → repeat when data changes
         (Components)  (return jsx)  (useEffect)      (state change, props change, parent re-render)
 

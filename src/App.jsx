@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Navbar from "./Components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import usersData from "./data/dummyUsers";
+import PLAN_DETAILS from "./constants/plans";
 
 
 function App() {
@@ -12,6 +13,17 @@ const [users,setUsers] = useState([]);  // state user is lifted to App.jsx so th
 const API_USE=true; // toggle it to use dummyData
 
 useEffect(()=>{
+
+  const savedUsers=localStorage.getItem("users");  //
+  if(savedUsers){
+    const parsedUsers=JSON.parse(savedUsers); 
+    if(parsedUsers.length >0){
+       setUsers(parsedUsers);     // Batching in react
+       return;
+    }
+  
+  }
+
 if(API_USE===false){
   setUsers(usersData);
   return;
@@ -21,19 +33,16 @@ fetch("https://jsonplaceholder.typicode.com/users")
 .then(res=>res.json())
 .then(data=>{
  const userFromAPI= data.map((user)=>{
-  const plan=["Basic", "Pro", "Premium"][user.id%3];
-  let bill=0;
-  if(plan==="Basic") bill=1500;
-  else if(plan==="Pro") bill=2500;
-  else bill=3500;
+  const plan=["Basic", "Premium", "Pro"][user.id %3]
+  const selectedPlan=PLAN_DETAILS[plan];
 
   return{
      id:user.id,
      name:user.name,
      email:user.email,
      phone:user.phone,
-     plan:["Basic (100mbps) ", "Pro (200mbps) ", "Premium (300mbps)"][user.id%3],
-     bill:bill,
+     plan:plan,
+     bill:selectedPlan.bill,
      paid:user.id%2===0
   }
   
@@ -46,6 +55,13 @@ fetch("https://jsonplaceholder.typicode.com/users")
 })
 },[])
 
+// to store data into localStorage if users is not empty
+useEffect(()=>{
+  if(users.length>0){ // this line is very important as fetch is asynchronous so js will not wait IT IS PREVENTING THE NEW USER TO NOT LOST AFTER REFRESH FROM LOCAL STORAGE 
+   localStorage.setItem("users",JSON.stringify(users));
+  }
+  
+},[users])
 
 return(
   <>

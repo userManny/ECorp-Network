@@ -32,3 +32,13 @@ C.Run when something changes  =>Run on mount + whenever "users" updates
 useEffect(() => {
   // runs when users changes
 }, [users]);
+
+7. 👉 Issue: localStorage persistance , when add a new user dashboard shows but after refresh page=> newUser data lost => even though data was being correctly stored in localStorage
+       Root Cause: Batching - The issue occurred because React state updates using setState() (setUsers) are scheduled and applied after the component re-renders, rather than updating immediately.
+                   Initially users state[]
+                   useEffect responsible for storing users to localStorage execute immediately after first render before API call(as fetch is asynchronous ) store empty []
+                   After API call => data added and stored, so new added used is added to localStorage till Now
+                   Now Refresh, component render again so empty array overwrite the previous localStorage and showing only users from API calls 
+        Fix: IN 2nd useEffect that was responsible for storing data into localStorage a conditional check
+                   if(users.length>0 ){ localStorage.setItem("users",JSON.stringify(users))}
+                   

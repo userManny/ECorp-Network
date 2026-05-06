@@ -1,5 +1,8 @@
 import { useState } from "react";
 import "./AddUserForm.css";
+import PLAN_DETAILS from "../../constants/plans";
+
+
    function AddUserForm({users,setUsers}){
        const [name,setName]=useState("");
        const [email,setEmail]=useState("");
@@ -10,11 +13,9 @@ import "./AddUserForm.css";
 
          function handleSubmit(e){
          e.preventDefault();
-        
-         let bill=0; 
-         if(plan ==="Basic") bill=1500;
-         else if(plan ==="Pro") bill=2500;
-         else bill=3500;
+       
+         const selectedPlan=PLAN_DETAILS[plan];
+       
 
          const newUser={
             id:users.length+1,
@@ -22,7 +23,7 @@ import "./AddUserForm.css";
             email:email,
             phone:phone,
             plan:plan,
-            bill:bill,
+            bill:selectedPlan.bill,
             paid:false
          };
 
@@ -69,8 +70,8 @@ import "./AddUserForm.css";
                 value={plan} 
                 onChange={e=>setPlan(e.target.value)}>
         <option value="Basic">Basic (100mbps)</option>
-        <option value="Pro">Pro (200mbps) </option>
-        <option value="Premium">Premium (300mbps)</option>
+        <option value="Premium">Premium (200mbps) </option>
+        <option value="Pro">Pro (300mbps)</option>
 
         </select>
          

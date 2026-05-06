@@ -15,7 +15,7 @@ function Users({users,setUsers}){
 
     //  code to filter for mark as Paid button 
     // const filterdUser= showUnpaid ? users.filter(user=>!user.paid) :users;
-        const filterdUsers= users.filter(user=>
+        const filteredUsers= users.filter(user=>
         showUnpaid? !user.paid :true
     ).filter(user=>user.name.toLowerCase().includes(searchTerm.toLowerCase()) );
 
@@ -61,7 +61,7 @@ function Users({users,setUsers}){
    
 
         <div className="users-container">
-            {filterdUsers.map(user=>{
+            {filteredUsers.map(user=>{
                 return(
                 <UserCard 
                 key={user.id}
