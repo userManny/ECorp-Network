@@ -1,3 +1,37 @@
+
+.toolbar{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.toolbar button{
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #222;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.toolbar button:hover{
+    background-color: #444;
+}
+
+.toolbar input{
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    min-width: 220px;
+    font-size: 14px;
+    flex: 1;
+    max-width: 300px;
+}
+
 .users-container {
   display: flex;
   flex-wrap: wrap;

@@ -36,6 +36,11 @@ function Users({users,setUsers}){
         }
     }
 
+    // handle reset 
+    function handleReset(){
+     localStorage.clear(); // to clear localStorage to undo all changes
+     window.location.reload();  // app loads again
+    }
 
 
 
@@ -49,14 +54,23 @@ function Users({users,setUsers}){
         <h1>Users Page</h1>
         <DashboardStats users={users} />
         
-      <button onClick={()=>setShowForm(prev=>!prev)}>Add New User</button>
-      {showForm && <AddUserForm users={users} setUsers={setUsers} />}
+        <div className="toolbar">
+             <button onClick={()=>setShowForm(prev=>!prev)}>Add New User</button>
+      
+
+      <button onClick={handleReset}>Reset</button>
         
         <button onClick={toggleFilter}>{showUnpaid? "Show All Users":"Show Unpaid Only"}</button>
         <input type="text" 
                placeholder="Search Users ..." 
                value={searchTerm}
                onChange={(e)=>setSearchTerm(e.target.value)} />
+
+        </div>
+        {showForm && (
+  <AddUserForm users={users} setUsers={setUsers} />
+        )}
+      
        
    
 
