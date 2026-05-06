@@ -1,26 +1,107 @@
-.card {
-  width: 250px;
-  padding: 15px;
+.user-card {
+  width: 280px;
+  padding: 20px;
   border: 1px solid #2a2a2a;
   background: #1a1a1a;
   color: white;
-  border-radius: 8px;
+  border-radius: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  transition: 0.3s;
 }
 
+.user-card:hover{
+  transform: translateY(-5px);
+  border-color: #444;
+}
+
+/* Header */
+
+.card-header h3{
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.card-header p{
+  color: #bdbdbd;
+  font-size: 14px;
+}
+
+/* Details */
+
+.user-details{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 16px;
+}
+
+/* Status */
+
+.status{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.paid-status{
+  background-color: #16a34a;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.due-status{
+  background-color: #dc2626;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+/* Buttons */
+
+.btn-group{
+  display: flex;
+  gap: 10px;
+}
+
+.btn-group button{
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Paid Button */
 
 .paid-btn{
   background-color: #16a34a;
   color: white;
 }
 
+/* Unpaid Button */
+
 .unpaid-btn{
-  background-color:  #374151;
+  background-color: #374151;
   color: white;
 }
 
+/* Delete Button */
+
 .delete-user-btn{
-  display: block;
-  background-color:  #dc2626;
+  background-color: #dc2626;
   color: white;
-  margin: 10px auto;
 }
