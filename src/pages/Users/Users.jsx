@@ -10,6 +10,7 @@ function Users({users,setUsers}){
    // const [users,setUsers]=useState([]); // using [] instead of usersData as now we are taking data from API call and not dummyData 
     const [showUnpaid,setShowUnpaid]=useState(false);
     const [searchTerm,setSearchTerm]=useState("");  // state for search bar 
+    const [selectedUser,setSelectedUser]=useState(null);
     const [showForm,setShowForm]=useState(false);  // state to show form to add new user 
    
 
@@ -38,7 +39,7 @@ function Users({users,setUsers}){
 
     // handle reset 
     function handleReset(){
-     localStorage.clear(); // to clear localStorage to undo all changes
+     localStorage.removeItem("users"); // to clear localStorage to undo all changes
      window.location.reload();  // app loads again
     }
 
@@ -55,7 +56,9 @@ function Users({users,setUsers}){
         <DashboardStats users={users} />
         
         <div className="toolbar">
-             <button onClick={()=>setShowForm(prev=>!prev)}>Add New User</button>
+             <button onClick={()=>{
+                setSelectedUser(null);
+                setShowForm(prev=>!prev);}}>Add New User</button>
       
 
       <button onClick={handleReset}>Reset</button>
@@ -68,7 +71,8 @@ function Users({users,setUsers}){
 
         </div>
         {showForm && (
-  <AddUserForm users={users} setUsers={setUsers} />
+  <AddUserForm users={users} setUsers={setUsers} selectedUser={selectedUser} setSelectedUser={setSelectedUser}
+   setShowForm={setShowForm} />
         )}
       
        
@@ -86,6 +90,10 @@ function Users({users,setUsers}){
                 paid={user.paid}
                 onMarkPaid={()=>markAsPaid(user.id)}
                 onDelete={()=>deleteUser(user.id)}
+                onEdit={()=>{
+                    setSelectedUser(user);
+                    setShowForm(true);
+                }}
                 />
                 )
                 

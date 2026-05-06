@@ -1,7 +1,10 @@
 import "./UserCard.css";
 import PLAN_DETAILS from "../../constants/plans";
+import AddUserForm from "../AddUserForm/AddUserForm"; // for Edit user Details form
+import { useState } from "react";
 
-function UserCard({name,email,phone,plan,paid,onMarkPaid,onDelete}){
+function UserCard({name,email,phone,plan,paid,onMarkPaid,onDelete,onEdit}){
+    
 
     const selectedPlan=PLAN_DETAILS[plan];
 
@@ -38,6 +41,8 @@ function UserCard({name,email,phone,plan,paid,onMarkPaid,onDelete}){
                         >
                   {paid?"Payment Received":"Mark as Paid"}
              </button>
+
+             <button className="btn-group" onClick={onEdit} >Edit User Details</button>
             <button className="delete-user-btn" onClick={onDelete}>Delete User</button>
             </div>
        
