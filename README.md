@@ -5,8 +5,20 @@
 
 ## 🌐 ECorp Network
 
-- A React-based web application designed to manage customers of an Internet Service Provider (ISP), including tracking subscription plans, billing status, and payments. The platform provides a centralized dashboard for monitoring total users, revenue, and pending dues. It enables efficient user management with real-time updates and insights.
+- A React-based ISP management dashboard designed to manage customers, subscription plans, billing, and payment status. The application features a centralized admin dashboard with dynamically updated statistics, dynamic user management, API integration, and complete frontend CRUD operations. It demonstrates scalable React architecture using component-based design, lifted state management, controlled forms, and dynamic UI rendering.
 ---
+
+## 📸 Preview
+
+### Dashboard
+![Dashboard](./public/screenshots/dashboard.png)
+
+### Users Page
+![Users Page](./public/screenshots/users-page.png)
+
+### ADD New User Form
+![Add New User Form](./public/screenshots/add-user-form.png)
+
 
 ## 🚀 Features
 
@@ -19,13 +31,15 @@
 
 ---
 
-### 👥 Users Page
-- Display users in card format
-- Search users by name
+### 👥 Users Management
+- Display users in responsive card layout
+- Search users dynamically by name
 - Filter unpaid users
 - Mark users as **Paid**
-- Dynamic data rendering
-
+- Add new users using controlled forms
+- Delete users with confirmation popup
+- Dynamic plan-based billing generation
+- Real-time UI updates using React state
 ---
 
 ### 📊 Dashboard
@@ -34,6 +48,16 @@
   - Total Revenue
   - Pending Amount
 - Updates automatically when user data changes
+
+---
+
+### 🔄 CRUD Operations
+Implemented complete frontend CRUD functionality:
+
+- **Create** → Add new users dynamically
+- **Read** → Display and search user data
+- **Update** → Update payment status
+- **Delete** → Remove users with confirmation dialog
 
 ---
 
@@ -67,7 +91,10 @@
 ### 🔹 Advanced Concepts
 - State Lifting (Single Source of Truth)
 - Data Transformation
-- Controlled Inputs (Search)
+- Controlled Inputs & Forms
+- CRUD State Management
+- Conditional Rendering
+- Dynamic Form Handling
 - Derived State (Dashboard stats)
 
 ---
@@ -86,20 +113,20 @@
 src/
 │
 ├── Components/
-│ ├── Navbar/
-│ ├── UserCard/
-│ └── DashboardStats/
+│   ├── Navbar/
+│   ├── UserCard/
+│   ├── DashboardStats/
+│   └── AddUserForm/
 │
 ├── pages/
-│ ├── Users/
-│ └── Dashboard/
+│   ├── Users/
+│   └── Dashboard/
 │
 ├── data/
-│ └── dummyUsers.js
+│   └── dummyUsers.js
 │
 ├── App.jsx
 └── main.jsx
-
 ```
 
 
@@ -114,6 +141,25 @@ Users.jsx (update state)
 Dashboard.jsx (read state)  
 
 ---
+
+## 🛠️ Tech Stack
+
+- React.js
+- React Router DOM
+- JavaScript (ES6+)
+- CSS3
+- REST API Integration
+- Vite
+
+---
+
+## 🚀 Deployment
+
+The application is deployed on **Vercel**.
+
+🔗 Live Demo: https://e-corp-network.vercel.app/
+---
+
 
 ## ⚙️ Installation
 
@@ -130,7 +176,9 @@ npm run dev
 - App loads → API fetch runs  
 - Users state stored in `App.jsx`  
 - Data passed to **Users** and **Dashboard**  
-- Updating user (mark as paid) updates entire app  
+- CRUD operations update shared application state
+- Dashboard statistics update automatically in real-time
+- User creation and deletion instantly re-render the UI  
 
 ---
 
@@ -146,12 +194,15 @@ npm run dev
 ---
 
 ## 🔥 Future Improvements
-
-- Add / Edit / Delete users (CRUD)  
-- Authentication system  
-- Backend integration  
-- Global state (Context API)  
-- Charts for dashboard  
+ 
+- Local Storage persistence
+- Full Edit User functionality
+- Authentication & Authorization
+- Backend integration (Node.js / Express / MongoDB)
+- Data visualization charts
+- Responsive mobile-first design
+- Global state management (Context API / Redux)
+- Role-based admin dashboard 
 
 ---
 
