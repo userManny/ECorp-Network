@@ -5,12 +5,16 @@ import UserCard from "../../Components/UserCard/UserCard";
 
 function Dashboard({users}){
    //  const [users,setUsers]=useState([]);  this state if lifted to App.jsx
+
+  
     return(
         <>
         <div>
             <h1>Dashboard</h1>
 
             <DashboardStats users={users} />
+
+            
         </div>
         </>
     );

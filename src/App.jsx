@@ -20,15 +20,24 @@ if(API_USE===false){
 fetch("https://jsonplaceholder.typicode.com/users")
 .then(res=>res.json())
 .then(data=>{
- const userFromAPI= data.map((user)=>({
-  id:user.id,
-  name:user.name,
-  email:user.email,
-  phone:user.phone,
-  plan:["Basic (100mbps) ", "Pro (200mbps) ", "Premium (300mbps)"][user.id%3],
-  bill:user.id*1000 +500,
-  paid:user.id%2===0
- }))
+ const userFromAPI= data.map((user)=>{
+  const plan=["Basic", "Pro", "Premium"][user.id%3];
+  let bill=0;
+  if(plan==="Basic") bill=1500;
+  else if(plan==="Pro") bill=2500;
+  else bill=3500;
+
+  return{
+     id:user.id,
+     name:user.name,
+     email:user.email,
+     phone:user.phone,
+     plan:["Basic (100mbps) ", "Pro (200mbps) ", "Premium (300mbps)"][user.id%3],
+     bill:bill,
+     paid:user.id%2===0
+  }
+  
+ })
  setUsers(userFromAPI);
 })
 .catch(()=>{

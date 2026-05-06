@@ -1,6 +1,6 @@
 import "./UserCard.css";
 
-function UserCard({name,email,phone,plan,bill,paid,onMarkPaid}){
+function UserCard({name,email,phone,plan,bill,paid,onMarkPaid,onDelete}){
 
     return(
         <>
@@ -15,7 +15,7 @@ function UserCard({name,email,phone,plan,bill,paid,onMarkPaid}){
         >
         {paid?"Payment Received":"Mark as Paid"}
              </button>
-
+          <button className="delete-user-btn" onClick={onDelete}>Delete User</button>
         </div>
        
         </>

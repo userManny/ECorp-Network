@@ -9,11 +9,18 @@
 
 
 .paid-btn{
-  background-color: green;
+  background-color: #16a34a;
   color: white;
 }
 
 .unpaid-btn{
-  background-color: red;
+  background-color:  #374151;
   color: white;
+}
+
+.delete-user-btn{
+  display: block;
+  background-color:  #dc2626;
+  color: white;
+  margin: 10px auto;
 }
