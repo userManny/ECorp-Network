@@ -42,7 +42,7 @@ function UserCard({name,email,phone,plan,paid,onMarkPaid,onDelete,onEdit}){
                   {paid?"Payment Received":"Mark as Paid"}
              </button>
 
-             <button className="btn-group" onClick={onEdit} >Edit User Details</button>
+             <button className="edit-user-btn" onClick={onEdit} >Edit User Details</button>
             <button className="delete-user-btn" onClick={onDelete}>Delete User</button>
             </div>
        

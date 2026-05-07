@@ -90,10 +90,22 @@ function Users({users,setUsers}){
                 paid={user.paid}
                 onMarkPaid={()=>markAsPaid(user.id)}
                 onDelete={()=>deleteUser(user.id)}
-                onEdit={()=>{
-                    setSelectedUser(user);
-                    setShowForm(true);
-                }}
+                onEdit={() => {
+
+            if(selectedUser?.id === user.id && showForm){
+        setSelectedUser(null);
+        setShowForm(false);
+                  }
+            else{
+        setSelectedUser(user);
+        setShowForm(true);
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+}}
                 />
                 )
                 
