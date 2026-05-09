@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+
 import UserCard from "../../Components/UserCard/UserCard.jsx";
 import DashboardStats from "../../Components/DashboardStats/DashboardStats.jsx";
-import usersData from "../../data/dummyUsers.js";
+
 import "./Users.css";
 import AddUserForm from "../../Components/AddUserForm/AddUserForm.jsx";
 

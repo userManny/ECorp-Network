@@ -1,4 +1,6 @@
 
+<!-- CNRL + Shift+ V                for preview in vs code -->
+
 - 🔗 [Live App](https://e-corp-network.vercel.app/)
 - 💻 [GitHub Repo](https://github.com/userManny/ECorp-Network)
 
@@ -16,8 +18,12 @@
 ### Users Page
 ![Users Page](./public/screenshots/users-page.png)
 
+### Users Card
+![Users Card](./public/screenshots/users-card.png)
+
 ### ADD New User Form
 ![Add New User Form](./public/screenshots/add-user-form.png)
+
 
 
 ## 🚀 Features
