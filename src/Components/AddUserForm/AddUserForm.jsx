@@ -1,116 +1,266 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./AddUserForm.css";
 import PLAN_DETAILS from "../../constants/plans";
+import { useUsers } from "../../context/UserContext";
 
- 
+function AddUserForm({
+  selectedUser,
+  setSelectedUser,
+  setShowForm,
+}) {
 
-   function AddUserForm({users,setUsers,selectedUser,setSelectedUser,
-   setShowForm}){
-       const [name,setName]=useState("");
-       const [email,setEmail]=useState("");
-       const [phone,setPhone]=useState("");
-       const [plan,setPlan]=useState("Basic");  // as by default select option has Basic paln
-       
-       useEffect(() => {
-   if(selectedUser){
+  // Get shared user data from Context
+  const { users, setUsers } = useUsers();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [plan, setPlan] = useState("Basic");
+
+
+  // Load selected user data when editing
+  useEffect(() => {
+
+    if (selectedUser) {
+
       setName(selectedUser.name);
       setEmail(selectedUser.email);
       setPhone(selectedUser.phone);
       setPlan(selectedUser.plan);
-   }
-}, [selectedUser]);
-       
 
+    } else {
 
-         function handleSubmit(e){
-         e.preventDefault();
-       
-         const selectedPlan=PLAN_DETAILS[plan];
-       
-         if(selectedUser){
-            const updatedUsers = users.map(user=>
-               user.id ===selectedUser.id ? {
-                  ...user,
-                  name:name,
-                  email:email,
-                  phone:phone,
-                  plan:plan,
-                  bill:selectedPlan.bill
-               } :user
-            );
-            setUsers(updatedUsers);
-         }
-         else{
-            const newUser={
-            id:Date.now(),
-            name:name,
-            email:email,
-            phone:phone,
-            plan:plan,
-            bill:selectedPlan.bill,
-            paid:false
-         };
-         setUsers(prev=>[...prev,newUser])
-         }
-        
-         // to clear the form after submit
-          setName("");
-          setEmail("");
-          setPhone("");
-          setPlan("Basic");
-          setSelectedUser(null);
-          setShowForm(false);
+      setName("");
+      setEmail("");
+      setPhone("");
+      setPlan("Basic");
 
     }
-         
-         
-         return(
-            <>
-         <form onSubmit={handleSubmit} className="add-user-form">
-         <label htmlFor="name" className="input-title">Name</label>
-         <input id="name" 
-                type="text" 
-                placeholder="Enter Name of User" 
-                value={name}
-                onChange={e=>setName(e.target.value)}
-                required  />
 
-         <label htmlFor="email" className="input-title">Email</label>
-         <input id="email" 
-                type="email" 
-                placeholder="Enter email" 
-                value={email} 
-                onChange={e=>setEmail(e.target.value)}
-                required/>
+  }, [selectedUser]);
 
-         <label htmlFor="phone" className="input-title">Phone</label>
-         <input id="phone" 
-                type="tel" 
-                placeholder="Enter phone number" 
-                value={phone}
-                onChange={e=>setPhone(e.target.value)}
-                required/>
-        <label className="input-title">Select Plan</label>
-        <select name="plan" 
-                id="plan" 
-                value={plan} 
-                onChange={e=>setPlan(e.target.value)}>
-        <option value="Basic">Basic (100mbps)</option>
-        <option value="Premium">Premium (200mbps) </option>
-        <option value="Pro">Pro (300mbps)</option>
+
+  function handleSubmit(e) {
+
+    e.preventDefault();
+
+    const selectedPlan = PLAN_DETAILS[plan];
+
+
+    // Update existing user
+    if (selectedUser) {
+
+      const updatedUsers = users.map((user) =>
+        user.id === selectedUser.id
+          ? {
+              ...user,
+              name,
+              email,
+              phone,
+              plan,
+              bill: selectedPlan.bill,
+            }
+          : user
+      );
+
+      setUsers(updatedUsers);
+
+    }
+
+
+    // Create new user
+    else {
+
+      const newUser = {
+        id: Date.now(),
+        name,
+        email,
+        phone,
+        plan,
+        bill: selectedPlan.bill,
+        paid: false,
+      };
+
+      setUsers((prev) => [
+        ...prev,
+        newUser
+      ]);
+
+    }
+
+
+    // Reset form
+    setName("");
+    setEmail("");
+    setPhone("");
+    setPlan("Basic");
+
+    setSelectedUser(null);
+    setShowForm(false);
+  }
+
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="add-user-form"
+    >
+
+      {/* Name */}
+
+      <div className="form-field">
+
+        <label htmlFor="name">
+          CUSTOMER NAME
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter customer name"
+          value={name}
+          onChange={(e) =>
+            setName(e.target.value)
+          }
+          required
+        />
+
+      </div>
+
+
+      {/* Email */}
+
+      <div className="form-field">
+
+        <label htmlFor="email">
+          EMAIL ADDRESS
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="customer@example.com"
+          value={email}
+          onChange={(e) =>
+            setEmail(e.target.value)
+          }
+          required
+        />
+
+      </div>
+
+
+      {/* Phone */}
+
+      <div className="form-field">
+
+        <label htmlFor="phone">
+          PHONE NUMBER
+        </label>
+
+        <input
+          id="phone"
+          type="tel"
+          placeholder="Enter phone number"
+          value={phone}
+          onChange={(e) =>
+            setPhone(e.target.value)
+          }
+          required
+        />
+
+      </div>
+
+
+      {/* Plan */}
+
+      <div className="form-field">
+
+        <label htmlFor="plan">
+          SUBSCRIPTION PLAN
+        </label>
+
+        <select
+          id="plan"
+          value={plan}
+          onChange={(e) =>
+            setPlan(e.target.value)
+          }
+        >
+
+          <option value="Basic">
+            Basic — 100 Mbps — ₹1,500
+          </option>
+
+          <option value="Premium">
+            Premium — 200 Mbps — ₹2,500
+          </option>
+
+          <option value="Pro">
+            Pro — 300 Mbps — ₹3,500
+          </option>
 
         </select>
-         
-         <button type="submit" className="submit-btn">
-   {selectedUser ? "Update User" : "Add User"}
-         </button>
-       </form>
+
+      </div>
 
 
-            </>
-         )
-        
-   }
+      {/* Selected Plan Preview */}
 
-   export default AddUserForm;
-   
+      <div className="plan-preview">
+
+        <div>
+
+          <span className="preview-label">
+            SELECTED PLAN
+          </span>
+
+          <span className="preview-value">
+            {plan.toUpperCase()}
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <span className="preview-label">
+            MONTHLY BILL
+          </span>
+
+          <span className="preview-bill">
+            ₹
+            {PLAN_DETAILS[plan].bill.toLocaleString(
+              "en-IN"
+            )}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      {/* Submit */}
+
+      <button
+        type="submit"
+        className="submit-btn"
+      >
+
+        <span>
+          {selectedUser
+            ? "UPDATE RECORD"
+            : "CREATE RECORD"}
+        </span>
+
+        <span className="submit-arrow">
+          →
+        </span>
+
+      </button>
+
+    </form>
+  );
+}
+
+export default AddUserForm;
