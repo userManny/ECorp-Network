@@ -1,7 +1,5 @@
 import "./UserCard.css";
 import PLAN_DETAILS from "../../constants/plans";
-import AddUserForm from "../AddUserForm/AddUserForm"; // for Edit user Details form
-import { useState } from "react";
 
 function UserCard({name,email,phone,plan,paid,onMarkPaid,onDelete,onEdit}){
     

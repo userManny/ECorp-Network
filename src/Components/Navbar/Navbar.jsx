@@ -6,7 +6,7 @@ function Navbar() {
     <>
     <nav className="navbar">
      <div className="logo">ECorp Networks</div>
-
+    
      <div className="nav-links">
         <Link to="/">Dashboard</Link>
         <Link to="/users">Users</Link>
