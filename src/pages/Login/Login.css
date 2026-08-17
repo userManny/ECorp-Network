@@ -1,0 +1,221 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #f5f5f3;
+}
+
+
+.login-container {
+  width: 100%;
+  max-width: 460px;
+  padding: 48px;
+  background: #ffffff;
+  border: 1px solid #d8d8d4;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+
+.login-container .ecorp-mark {
+  margin-bottom: 32px;
+}
+
+
+.login-title {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 500;
+  letter-spacing: -1px;
+  color: #171717;
+}
+
+
+.login-description {
+  margin: 10px 0 36px;
+  color: #777;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+}
+
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+
+.login-form .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+.login-form label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #555;
+}
+
+
+.login-form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 15px;
+
+  border: 1px solid #cfcfcb;
+
+  background-color: #fafaf8;
+  color: #171717;
+
+  font-size: 14px;
+  outline: none;
+
+  border-radius: 0;
+  box-shadow: none;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+
+.login-form input:focus {
+  border-color: #171717;
+  background-color: #ffffff;
+}
+
+
+.login-form input::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+
+/* =========================================
+   BROWSER AUTOFILL FIX
+========================================= */
+
+.login-form input:-webkit-autofill,
+.login-form input:-webkit-autofill:hover,
+.login-form input:-webkit-autofill:focus,
+.login-form input:-webkit-autofill:active {
+
+  -webkit-text-fill-color: #171717 !important;
+
+  -webkit-box-shadow:
+    0 0 0 1000px #fafaf8 inset !important;
+
+  box-shadow:
+    0 0 0 1000px #fafaf8 inset !important;
+
+  background-color: #fafaf8 !important;
+
+  border: 1px solid #cfcfcb !important;
+
+  border-radius: 0 !important;
+
+  color: #171717 !important;
+}
+
+
+/* Prevent browser autofill from changing the input appearance */
+
+.login-form input:-internal-autofill-selected {
+  background-color: #fafaf8 !important;
+  color: #171717 !important;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.login-error {
+  padding: 12px 14px;
+
+  border: 1px solid #d5a3a3;
+  background: #fff7f7;
+
+  color: #a33;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   LOGIN BUTTON
+========================================= */
+
+.login-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 15px 18px;
+
+  border: 1px solid #171717;
+  background: #171717;
+
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+
+.login-btn:hover {
+  background: #333;
+}
+
+
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .login-page {
+    padding: 20px;
+  }
+
+
+  .login-container {
+    padding: 32px 24px;
+  }
+
+
+  .login-title {
+    font-size: 34px;
+  }
+
+}
+
+
+/* =========================================
+   LOGIN ECORP BRANDING
+========================================= */
+
+.login-container .ecorp-mark {
+  color: #e00000 !important;
+}
+
+.login-container .ecorp-mark span {
+  color: #e00000 !important;
+}
+
+.login-container .ecorp-mark .ecorp-line {
+  background: #e00000 !important;
+}

@@ -12,6 +12,7 @@ function AddUserForm({
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [plan, setPlan] = useState("Basic");
 
@@ -20,11 +21,13 @@ function AddUserForm({
     if (selectedUser) {
       setName(selectedUser.name);
       setEmail(selectedUser.email);
+      setPassword("");
       setPhone(selectedUser.phone);
       setPlan(selectedUser.plan);
     } else {
       setName("");
       setEmail("");
+      setPassword("");
       setPhone("");
       setPlan("Basic");
     }
@@ -40,10 +43,12 @@ function AddUserForm({
       const newUser = {
         name,
         email,
+        password,
         phone,
         plan,
         bill: selectedPlan.bill,
         paid: false,
+        role: "user",
       };
 
       try {
@@ -54,6 +59,7 @@ function AddUserForm({
         // Reset form
         setName("");
         setEmail("");
+        setPassword("");
         setPhone("");
         setPlan("Basic");
 
@@ -89,6 +95,7 @@ function AddUserForm({
       // Reset form
       setName("");
       setEmail("");
+      setPassword("");
       setPhone("");
       setPlan("Basic");
 
@@ -143,6 +150,32 @@ function AddUserForm({
         />
 
       </div>
+
+
+      {/* Password - only for new users */}
+      {!selectedUser && (
+
+        <div className="form-field">
+
+          <label htmlFor="password">
+            PASSWORD
+          </label>
+
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
+            minLength="6"
+            required
+          />
+
+        </div>
+
+      )}
 
 
       {/* Phone */}

@@ -74,21 +74,34 @@ function Settings() {
 
           <div className="info-item">
             <span>APPLICATION</span>
-            <strong>ECorp Network</strong>
+
+            <strong>
+              ECorp Network
+            </strong>
           </div>
+
 
           <div className="info-item">
             <span>VERSION</span>
-            <strong>2.0.0</strong>
+
+            <strong>
+              2.0.0
+            </strong>
           </div>
+
 
           <div className="info-item">
             <span>ENVIRONMENT</span>
-            <strong>PRODUCTION</strong>
+
+            <strong>
+              PRODUCTION
+            </strong>
           </div>
+
 
           <div className="info-item">
             <span>STATUS</span>
+
             <strong className="online-text">
               ONLINE
             </strong>
@@ -99,7 +112,7 @@ function Settings() {
       </section>
 
 
-      {/* Preferences */}
+      {/* Dashboard Preferences */}
       <section className="settings-section">
 
         <div className="settings-section-header">
@@ -123,10 +136,11 @@ function Settings() {
 
         <div className="settings-options">
 
-          {/* Notifications */}
+          {/* Payment Notifications */}
           <div className="setting-row">
 
             <div>
+
               <strong>
                 Payment Notifications
               </strong>
@@ -135,7 +149,9 @@ function Settings() {
                 Receive notifications when customer payments
                 are pending.
               </p>
+
             </div>
+
 
             <button
               className={
@@ -148,16 +164,19 @@ function Settings() {
               }
               aria-label="Toggle payment notifications"
             >
+
               <span></span>
+
             </button>
 
           </div>
 
 
-          {/* Auto Refresh */}
+          {/* Automatic Data Refresh */}
           <div className="setting-row">
 
             <div>
+
               <strong>
                 Automatic Data Refresh
               </strong>
@@ -166,7 +185,9 @@ function Settings() {
                 Automatically refresh dashboard data when
                 changes are detected.
               </p>
+
             </div>
+
 
             <button
               className={
@@ -179,7 +200,9 @@ function Settings() {
               }
               aria-label="Toggle automatic data refresh"
             >
+
               <span></span>
+
             </button>
 
           </div>
@@ -189,7 +212,7 @@ function Settings() {
       </section>
 
 
-      {/* Account */}
+      {/* Admin Account */}
       <section className="settings-section">
 
         <div className="settings-section-header">
@@ -211,6 +234,7 @@ function Settings() {
         </div>
 
 
+        {/* Admin Identity */}
         <div className="admin-info">
 
           <div className="admin-avatar">
@@ -218,13 +242,59 @@ function Settings() {
           </div>
 
           <div>
+
             <strong>
               Administrator
             </strong>
 
             <span>
-              admin@ecorp.network
+              admin@ecorp.com
             </span>
+
+          </div>
+
+        </div>
+
+
+        {/* Admin Details */}
+        <div className="admin-details">
+
+          <div className="admin-detail">
+
+            <span>
+              ROLE
+            </span>
+
+            <strong>
+              ADMINISTRATOR
+            </strong>
+
+          </div>
+
+
+          <div className="admin-detail">
+
+            <span>
+              ACCESS
+            </span>
+
+            <strong>
+              FULL SYSTEM ACCESS
+            </strong>
+
+          </div>
+
+
+          <div className="admin-detail">
+
+            <span>
+              STATUS
+            </span>
+
+            <strong className="admin-online">
+              ● ACTIVE
+            </strong>
+
           </div>
 
         </div>
@@ -239,7 +309,9 @@ function Settings() {
           className="save-settings-btn"
           onClick={handleSave}
         >
-          {saved ? "CONFIGURATION SAVED" : "SAVE CONFIGURATION"}
+          {saved
+            ? "CONFIGURATION SAVED"
+            : "SAVE CONFIGURATION"}
         </button>
 
         <span>

@@ -3,9 +3,16 @@ import { lazy, Suspense } from "react";
 
 import Layout from "./Components/Layout/Layout";
 import LoadingScreen from "./Components/LoadingScreen/LoadingScreen";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import AdminRoute from "./Components/AdminRoute/AdminRoute";
 import { UserProvider } from "./context/UserContext";
 
+
 // Lazy-loaded pages
+const Login = lazy(() =>
+  import("./pages/Login/Login")
+);
+
 const Dashboard = lazy(() =>
   import("./pages/Dashboard/Dashboard")
 );
@@ -30,6 +37,11 @@ const Settings = lazy(() =>
   import("./pages/Settings/Settings")
 );
 
+const MyAccount = lazy(() =>
+  import("./pages/MyAccount/MyAccount")
+);
+
+
 function App() {
   return (
     <UserProvider>
@@ -38,54 +50,79 @@ function App() {
 
         <Routes>
 
-          {/* Common application layout */}
-          <Route element={<Layout />}>
+          {/* Login page */}
+          <Route
+            path="/login"
+            element={<Login />}
+          />
 
-            {/* Dashboard */}
+
+          {/* All logged-in users */}
+          <Route
+            element={
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            }
+          >
+
+            {/* Customer account */}
             <Route
-              path="/"
-              element={<Dashboard />}
-            />
-
-            <Route
-              path="/dashboard"
-              element={<Dashboard />}
-            />
-
-
-            {/* Users */}
-            <Route
-              path="/users"
-              element={<Users />}
-            />
-
-
-            {/* Dynamic User Details */}
-            <Route
-              path="/users/:id"
-              element={<UserDetails />}
+              path="/my-account"
+              element={<MyAccount />}
             />
 
 
-            {/* Plans */}
-            <Route
-              path="/plans"
-              element={<Plans />}
-            />
+            {/* Admin-only routes */}
+            <Route element={<AdminRoute />}>
+
+              {/* Dashboard */}
+              <Route
+                path="/"
+                element={<Dashboard />}
+              />
+
+              <Route
+                path="/dashboard"
+                element={<Dashboard />}
+              />
 
 
-            {/* Payments */}
-            <Route
-              path="/payments"
-              element={<Payments />}
-            />
+              {/* Users */}
+              <Route
+                path="/users"
+                element={<Users />}
+              />
 
 
-            {/* Settings */}
-            <Route
-              path="/settings"
-              element={<Settings />}
-            />
+              {/* Dynamic User Details */}
+              <Route
+                path="/users/:id"
+                element={<UserDetails />}
+              />
+
+
+              {/* Plans */}
+              <Route
+                path="/plans"
+                element={<Plans />}
+              />
+
+
+              {/* Payments */}
+              <Route
+                path="/payments"
+                element={<Payments />}
+              />
+
+
+              {/* Settings */}
+              <Route
+                path="/settings"
+                element={<Settings />}
+              />
+
+            </Route>
 
           </Route>
 

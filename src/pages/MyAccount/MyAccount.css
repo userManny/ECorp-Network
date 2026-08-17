@@ -1,0 +1,537 @@
+/* =========================================
+   MY ACCOUNT PAGE
+========================================= */
+
+.my-account-page {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 40px;
+  color: #ffffff;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.my-account-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 42px;
+}
+
+.my-account-header-main {
+  min-width: 0;
+}
+
+.my-account-title {
+  margin: 18px 0 8px;
+  color: #ffffff;
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.my-account-description {
+  margin: 0;
+  color: #b7b7b7;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.account-active {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.account-active-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #58c85a;
+  box-shadow: 0 0 8px rgba(88, 200, 90, 0.5);
+}
+
+
+/* =========================================
+   SECTION
+========================================= */
+
+.account-section {
+  margin-bottom: 38px;
+}
+
+.account-section-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 17px;
+}
+
+.account-section-index {
+  padding-top: 1px;
+  color: #a7a7a7;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.account-section-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.account-section-title {
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+}
+
+.account-section-line {
+  width: 32px;
+  height: 1px;
+  background: #ffffff;
+}
+
+
+/* =========================================
+   CUSTOMER RECORD
+========================================= */
+
+.customer-record-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  background: #ffffff;
+
+  border: 1px solid #d5d5d5;
+}
+
+.customer-record-item {
+  min-height: 105px;
+  box-sizing: border-box;
+  padding: 21px 17px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+
+  background: #ffffff;
+  color: #111111;
+
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.customer-record-item:nth-child(odd) {
+  border-right: 1px solid #d5d5d5;
+}
+
+.customer-record-item:nth-child(3),
+.customer-record-item:nth-child(4) {
+  border-bottom: none;
+}
+
+.record-label {
+  color: #777777;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+}
+
+.record-value {
+  color: #111111;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+
+/* =========================================
+   BILLING GRID
+========================================= */
+
+.billing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.billing-card {
+  min-height: 140px;
+  box-sizing: border-box;
+  padding: 24px 18px;
+
+  position: relative;
+
+  background: #ffffff;
+  border: 1px solid #d5d5d5;
+
+  color: #111111;
+}
+
+.monthly-bill-card {
+  border-left: 3px solid #45b94b;
+}
+
+.payment-card {
+  border-left: 3px solid #e32e2e;
+}
+
+.billing-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.billing-label {
+  color: #606060;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+}
+
+.billing-index {
+  color: #888888;
+  font-size: 9px;
+}
+
+
+.billing-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.billing-amount {
+  color: #218c27;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.billing-icon,
+.payment-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.billing-icon {
+  color: #218c27;
+  background: #e8f7e8;
+}
+
+.payment-icon {
+  color: #d22a2a;
+  background: #fde7e7;
+}
+
+.billing-description {
+  display: block;
+  margin-top: 15px;
+
+  color: #777777;
+  font-size: 10px;
+}
+
+
+/* =========================================
+   PAYMENT STATUS
+========================================= */
+
+.payment-status-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #d22a2a;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.payment-paid .payment-status-text {
+  color: #218c27;
+}
+
+.payment-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d22a2a;
+}
+
+.payment-paid .payment-status-dot {
+  background: #218c27;
+}
+
+
+/* =========================================
+   ACCOUNT STATUS
+========================================= */
+
+.account-status-section {
+  margin-top: 5px;
+}
+
+.account-status-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 1px 13px;
+}
+
+.account-status-heading > div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.account-status-index {
+  color: #a7a7a7;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.account-status-title {
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+}
+
+.account-status-code {
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+
+/* =========================================
+   ACCOUNT STATUS GRID
+========================================= */
+
+.account-status-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  background: #ffffff;
+  border: 1px solid #d5d5d5;
+}
+
+.account-status-item {
+  min-height: 105px;
+  box-sizing: border-box;
+  padding: 19px 17px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 9px;
+
+  background: #ffffff;
+  color: #111111;
+
+  border-right: 1px solid #d5d5d5;
+}
+
+.account-status-item:last-child {
+  border-right: none;
+}
+
+.status-item-label {
+  color: #666666;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+}
+
+.status-item-value {
+  color: #111111;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.status-active {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #218c27;
+}
+
+.status-item-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #45b94b;
+}
+
+.status-pending {
+  color: #d22a2a;
+}
+
+.status-item-description {
+  color: #777777;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.account-loading {
+  padding: 40px;
+
+  border: 1px solid #333333;
+
+  color: #aaaaaa;
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.account-error {
+  padding: 40px;
+
+  background: #ffffff;
+  border: 1px solid #d5d5d5;
+
+  color: #111111;
+}
+
+.account-error-code {
+  color: #111111;
+  font-size: 42px;
+  font-weight: 500;
+}
+
+.account-error h2 {
+  margin: 15px 0 8px;
+
+  color: #111111;
+
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.account-error p {
+  margin: 0;
+
+  color: #666666;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+  .my-account-page {
+    padding: 30px;
+  }
+
+  .billing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .account-status-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .account-status-item:nth-child(2) {
+    border-right: none;
+  }
+
+  .account-status-item:nth-child(1),
+  .account-status-item:nth-child(2) {
+    border-bottom: 1px solid #d5d5d5;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .my-account-page {
+    padding: 22px;
+  }
+
+  .my-account-header {
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .my-account-title {
+    font-size: 34px;
+  }
+
+  .customer-record-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .customer-record-item {
+    border-right: none !important;
+    border-bottom: 1px solid #d5d5d5 !important;
+  }
+
+  .customer-record-item:last-child {
+    border-bottom: none !important;
+  }
+
+  .account-status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .account-status-item {
+    border-right: none;
+    border-bottom: 1px solid #d5d5d5;
+  }
+
+  .account-status-item:last-child {
+    border-bottom: none;
+  }
+
+  .billing-amount {
+    font-size: 28px;
+  }
+
+  .payment-status-text {
+    font-size: 22px;
+  }
+}

@@ -353,3 +353,41 @@
     font-size: 18px;
   }
 }
+
+
+.sidebar-logout {
+  width: 100%;
+  margin-top: 18px;
+  padding: 10px 0;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: transparent;
+  border: none;
+
+  color: #999;
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebar-logout:hover {
+  color: #ffffff;
+}
+
+.sidebar-logout .nav-indicator {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #777;
+}
+
+.sidebar-logout:hover .nav-indicator {
+  background: #ffffff;
+}

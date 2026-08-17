@@ -1,7 +1,32 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 
 function Sidebar() {
+  const navigate = useNavigate();
+
+  const savedUser = localStorage.getItem("user");
+
+  let user = null;
+
+  try {
+    user = savedUser
+      ? JSON.parse(savedUser)
+      : null;
+  } catch (error) {
+    user = null;
+  }
+
+  const isAdmin = user?.role === "admin";
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login", {
+      replace: true,
+    });
+  }
+
   return (
     <aside className="sidebar">
 
@@ -19,91 +44,126 @@ function Sidebar() {
       </div>
 
 
-      {/* Main Navigation */}
-      <div className="sidebar-section">
+      {/* Customer Navigation */}
+      {!isAdmin && (
 
-        <span className="sidebar-section-title">
-          MAIN
-        </span>
+        <div className="sidebar-section">
 
-        <nav className="sidebar-nav">
+          <span className="sidebar-section-title">
+            ACCOUNT
+          </span>
 
-          <NavLink
-            to="/dashboard"
-            className="sidebar-link"
-          >
-            <span className="nav-indicator"></span>
-            <span>Dashboard</span>
-          </NavLink>
+          <nav className="sidebar-nav">
 
+            <NavLink
+              to="/my-account"
+              className="sidebar-link"
+            >
+              <span className="nav-indicator"></span>
+              <span>My Account</span>
+            </NavLink>
 
-          <NavLink
-            to="/users"
-            className="sidebar-link"
-          >
-            <span className="nav-indicator"></span>
-            <span>Users</span>
-          </NavLink>
+          </nav>
 
-        </nav>
+        </div>
 
-      </div>
+      )}
 
 
-      {/* Management */}
-      <div className="sidebar-section">
+      {/* Admin Navigation */}
+      {isAdmin && (
 
-        <span className="sidebar-section-title">
-          MANAGEMENT
-        </span>
+        <>
 
-        <nav className="sidebar-nav">
+          {/* Main Navigation */}
+          <div className="sidebar-section">
 
-          <NavLink
-            to="/plans"
-            className="sidebar-link"
-          >
-            <span className="nav-indicator"></span>
-            <span>Plans</span>
-          </NavLink>
+            <span className="sidebar-section-title">
+              MAIN
+            </span>
 
+            <nav className="sidebar-nav">
 
-          <NavLink
-            to="/payments"
-            className="sidebar-link"
-          >
-            <span className="nav-indicator"></span>
-            <span>Payments</span>
-          </NavLink>
-
-        </nav>
-
-      </div>
+              <NavLink
+                to="/dashboard"
+                className="sidebar-link"
+              >
+                <span className="nav-indicator"></span>
+                <span>Dashboard</span>
+              </NavLink>
 
 
-      {/* System */}
-      <div className="sidebar-section">
+              <NavLink
+                to="/users"
+                className="sidebar-link"
+              >
+                <span className="nav-indicator"></span>
+                <span>Users</span>
+              </NavLink>
 
-        <span className="sidebar-section-title">
-          SYSTEM
-        </span>
+            </nav>
 
-        <nav className="sidebar-nav">
-
-          <NavLink
-            to="/settings"
-            className="sidebar-link"
-          >
-            <span className="nav-indicator"></span>
-            <span>Settings</span>
-          </NavLink>
-
-        </nav>
-
-      </div>
+          </div>
 
 
-      {/* Bottom status */}
+          {/* Management */}
+          <div className="sidebar-section">
+
+            <span className="sidebar-section-title">
+              MANAGEMENT
+            </span>
+
+            <nav className="sidebar-nav">
+
+              <NavLink
+                to="/plans"
+                className="sidebar-link"
+              >
+                <span className="nav-indicator"></span>
+                <span>Plans</span>
+              </NavLink>
+
+
+              <NavLink
+                to="/payments"
+                className="sidebar-link"
+              >
+                <span className="nav-indicator"></span>
+                <span>Payments</span>
+              </NavLink>
+
+            </nav>
+
+          </div>
+
+
+          {/* System */}
+          <div className="sidebar-section">
+
+            <span className="sidebar-section-title">
+              SYSTEM
+            </span>
+
+            <nav className="sidebar-nav">
+
+              <NavLink
+                to="/settings"
+                className="sidebar-link"
+              >
+                <span className="nav-indicator"></span>
+                <span>Settings</span>
+              </NavLink>
+
+            </nav>
+
+          </div>
+
+        </>
+
+      )}
+
+
+      {/* Bottom */}
       <div className="sidebar-bottom">
 
         <div className="system-status-sidebar">
@@ -111,20 +171,37 @@ function Sidebar() {
           <span className="status-dot-sidebar"></span>
 
           <div>
+
             <span className="status-label">
-              SYSTEM
+              {isAdmin ? "ADMIN" : "CUSTOMER"}
             </span>
 
             <strong>
               ONLINE
             </strong>
+
           </div>
 
         </div>
 
+
         <span className="version-label">
           ECRP v2.0
         </span>
+
+
+        {/* Logout */}
+        <button
+          type="button"
+          className="sidebar-logout"
+          onClick={handleLogout}
+        >
+          <span className="nav-indicator"></span>
+
+          <span>
+            LOGOUT
+          </span>
+        </button>
 
       </div>
 
