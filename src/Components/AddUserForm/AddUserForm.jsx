@@ -8,71 +8,36 @@ function AddUserForm({
   setSelectedUser,
   setShowForm,
 }) {
-
-  // Get shared user data from Context
-  const { users, setUsers } = useUsers();
+  const { addUser, updateUser } = useUsers();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [plan, setPlan] = useState("Basic");
 
-
   // Load selected user data when editing
   useEffect(() => {
-
     if (selectedUser) {
-
       setName(selectedUser.name);
       setEmail(selectedUser.email);
       setPhone(selectedUser.phone);
       setPlan(selectedUser.plan);
-
     } else {
-
       setName("");
       setEmail("");
       setPhone("");
       setPlan("Basic");
-
     }
-
   }, [selectedUser]);
 
-
-  function handleSubmit(e) {
-
+  async function handleSubmit(e) {
     e.preventDefault();
 
     const selectedPlan = PLAN_DETAILS[plan];
 
-
-    // Update existing user
-    if (selectedUser) {
-
-      const updatedUsers = users.map((user) =>
-        user.id === selectedUser.id
-          ? {
-              ...user,
-              name,
-              email,
-              phone,
-              plan,
-              bill: selectedPlan.bill,
-            }
-          : user
-      );
-
-      setUsers(updatedUsers);
-
-    }
-
-
-    // Create new user
-    else {
-
+    // CREATE USER
+    if (!selectedUser) {
       const newUser = {
-        id: Date.now(),
         name,
         email,
         phone,
@@ -81,24 +46,60 @@ function AddUserForm({
         paid: false,
       };
 
-      setUsers((prev) => [
-        ...prev,
-        newUser
-      ]);
+      try {
+        await addUser(newUser);
 
+        console.log("User created successfully");
+
+        // Reset form
+        setName("");
+        setEmail("");
+        setPhone("");
+        setPlan("Basic");
+
+        // Close form
+        setSelectedUser(null);
+        setShowForm(false);
+
+      } catch (error) {
+        console.error("Failed to create user:", error);
+      }
+
+      return;
     }
 
+    // UPDATE USER
+    try {
+      const updatedUser = {
+        name,
+        email,
+        phone,
+        plan,
+        bill: selectedPlan.bill,
+        paid: selectedUser.paid,
+      };
 
-    // Reset form
-    setName("");
-    setEmail("");
-    setPhone("");
-    setPlan("Basic");
+      await updateUser(
+        selectedUser._id,
+        updatedUser
+      );
 
-    setSelectedUser(null);
-    setShowForm(false);
+      console.log("User updated successfully");
+
+      // Reset form
+      setName("");
+      setEmail("");
+      setPhone("");
+      setPlan("Basic");
+
+      // Close form
+      setSelectedUser(null);
+      setShowForm(false);
+
+    } catch (error) {
+      console.error("Failed to update user:", error);
+    }
   }
-
 
   return (
     <form
@@ -107,7 +108,6 @@ function AddUserForm({
     >
 
       {/* Name */}
-
       <div className="form-field">
 
         <label htmlFor="name">
@@ -119,9 +119,7 @@ function AddUserForm({
           type="text"
           placeholder="Enter customer name"
           value={name}
-          onChange={(e) =>
-            setName(e.target.value)
-          }
+          onChange={(e) => setName(e.target.value)}
           required
         />
 
@@ -129,7 +127,6 @@ function AddUserForm({
 
 
       {/* Email */}
-
       <div className="form-field">
 
         <label htmlFor="email">
@@ -141,9 +138,7 @@ function AddUserForm({
           type="email"
           placeholder="customer@example.com"
           value={email}
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
 
@@ -151,7 +146,6 @@ function AddUserForm({
 
 
       {/* Phone */}
-
       <div className="form-field">
 
         <label htmlFor="phone">
@@ -163,9 +157,7 @@ function AddUserForm({
           type="tel"
           placeholder="Enter phone number"
           value={phone}
-          onChange={(e) =>
-            setPhone(e.target.value)
-          }
+          onChange={(e) => setPhone(e.target.value)}
           required
         />
 
@@ -173,7 +165,6 @@ function AddUserForm({
 
 
       {/* Plan */}
-
       <div className="form-field">
 
         <label htmlFor="plan">
@@ -183,9 +174,7 @@ function AddUserForm({
         <select
           id="plan"
           value={plan}
-          onChange={(e) =>
-            setPlan(e.target.value)
-          }
+          onChange={(e) => setPlan(e.target.value)}
         >
 
           <option value="Basic">
@@ -206,7 +195,6 @@ function AddUserForm({
 
 
       {/* Selected Plan Preview */}
-
       <div className="plan-preview">
 
         <div>
@@ -230,9 +218,7 @@ function AddUserForm({
 
           <span className="preview-bill">
             ₹
-            {PLAN_DETAILS[plan].bill.toLocaleString(
-              "en-IN"
-            )}
+            {PLAN_DETAILS[plan].bill.toLocaleString("en-IN")}
           </span>
 
         </div>
@@ -241,7 +227,6 @@ function AddUserForm({
 
 
       {/* Submit */}
-
       <button
         type="submit"
         className="submit-btn"

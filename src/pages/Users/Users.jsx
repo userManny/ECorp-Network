@@ -5,14 +5,16 @@ import AddUserForm from "../../Components/AddUserForm/AddUserForm.jsx";
 import { useUsers } from "../../context/UserContext";
 
 function Users() {
-
-  const { users, setUsers } = useUsers();
+  const {
+    users,
+    deleteUser,
+    markUserAsPaid,
+  } = useUsers();
 
   const [showUnpaid, setShowUnpaid] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [showForm, setShowForm] = useState(false);
-
 
   // Filter users based on payment status and search term
   const filteredUsers = users
@@ -25,74 +27,54 @@ function Users() {
         .includes(searchTerm.toLowerCase())
     );
 
-
   // Mark user as paid
-  function markAsPaid(id) {
-
-    const updatedUsers = users.map((user) =>
-      user.id === id
-        ? { ...user, paid: true }
-        : user
-    );
-
-    setUsers(updatedUsers);
-  }
-
-
-  // Delete user
-  function deleteUser(id) {
-
-    const confirmed = confirm("Are You Sure?");
-
-    if (confirmed) {
-
-      const updatedUsers = users.filter(
-        (user) => user.id !== id
+  async function handleMarkAsPaid(id) {
+    try {
+      await markUserAsPaid(id);
+    } catch (error) {
+      console.error(
+        "Failed to mark user as paid:",
+        error
       );
-
-      setUsers(updatedUsers);
     }
   }
 
+  // Delete user
+  async function handleDeleteUser(id) {
+    const confirmed = confirm("Are You Sure?");
 
-  // Reset application data
-  function handleReset() {
-
-    localStorage.removeItem("users");
-
-    window.location.reload();
+    if (confirmed) {
+      try {
+        await deleteUser(id);
+      } catch (error) {
+        console.error(
+          "Failed to delete user:",
+          error
+        );
+      }
+    }
   }
-
 
   // Toggle unpaid filter
   function toggleFilter() {
-
     setShowUnpaid((prev) => !prev);
   }
 
-
   // Open add user form
   function handleAddUser() {
-
     setSelectedUser(null);
-
     setShowForm((prev) => !prev);
   }
 
-
   // Open edit form
   function handleEdit(user) {
-
     if (
-      selectedUser?.id === user.id &&
+      selectedUser?._id === user._id &&
       showForm
     ) {
-
       setSelectedUser(null);
       setShowForm(false);
-
     } else {
-
       setSelectedUser(user);
       setShowForm(true);
 
@@ -103,12 +85,10 @@ function Users() {
     }
   }
 
-
   return (
     <div className="users-page">
 
       {/* Page Header */}
-
       <header className="users-header">
 
         <div>
@@ -123,18 +103,15 @@ function Users() {
 
           </div>
 
-
           <h1 className="users-title">
             Users
           </h1>
-
 
           <p className="users-description">
             Customer management and billing
           </p>
 
         </div>
-
 
         <div className="users-count">
 
@@ -154,7 +131,6 @@ function Users() {
 
 
       {/* Toolbar */}
-
       <section className="users-toolbar">
 
         <div className="search-wrapper">
@@ -199,21 +175,12 @@ function Users() {
             ADD USER
           </button>
 
-
-          <button
-            className="toolbar-btn reset-btn"
-            onClick={handleReset}
-          >
-            RESET
-          </button>
-
         </div>
 
       </section>
 
 
       {/* Add / Edit Form */}
-
       {showForm && (
 
         <section className="form-section">
@@ -238,11 +205,8 @@ function Users() {
             <button
               className="close-form-btn"
               onClick={() => {
-
                 setShowForm(false);
-
                 setSelectedUser(null);
-
               }}
             >
               ×
@@ -263,7 +227,6 @@ function Users() {
 
 
       {/* Results Information */}
-
       <div className="results-header">
 
         <div>
@@ -292,7 +255,6 @@ function Users() {
 
 
       {/* Users */}
-
       {filteredUsers.length > 0 ? (
 
         <div className="users-container">
@@ -300,7 +262,7 @@ function Users() {
           {filteredUsers.map((user) => (
 
             <UserCard
-              key={user.id}
+              key={user._id}
 
               name={user.name}
               email={user.email}
@@ -310,11 +272,11 @@ function Users() {
               paid={user.paid}
 
               onMarkPaid={() =>
-                markAsPaid(user.id)
+                handleMarkAsPaid(user._id)
               }
 
               onDelete={() =>
-                deleteUser(user.id)
+                handleDeleteUser(user._id)
               }
 
               onEdit={() =>
@@ -345,11 +307,8 @@ function Users() {
 
           <button
             onClick={() => {
-
               setSearchTerm("");
-
               setShowUnpaid(false);
-
             }}
           >
             CLEAR FILTERS

@@ -1,73 +1,154 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import usersData from "../data/dummyUsers";
-import PLAN_DETAILS from "../constants/plans";
 
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
   const [users, setUsers] = useState([]);
 
-  const API_USE = true;
-
-  // Load users
+  // Load users from backend
   useEffect(() => {
-    const savedUsers = localStorage.getItem("users");
-
-    if (savedUsers) {
-      const parsedUsers = JSON.parse(savedUsers);
-
-      if (parsedUsers.length > 0) {
-        setUsers(parsedUsers);
-        return;
-      }
-    }
-
-    if (API_USE === false) {
-      setUsers(usersData);
-      return;
-    }
-
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("http://localhost:5000/api/users")
       .then((res) => res.json())
       .then((data) => {
-        const userFromAPI = data.map((user) => {
-          const plan = ["Basic", "Premium", "Pro"][user.id % 3];
-
-          const selectedPlan = PLAN_DETAILS[plan];
-
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            plan: plan,
-            bill: selectedPlan.bill,
-            paid: user.id % 2 === 0,
-          };
-        });
-
-        setUsers(userFromAPI);
+        console.log("Users received from backend:", data);
+        setUsers(data);
       })
-      .catch(() => {
-        setUsers(usersData);
+      .catch((error) => {
+        console.error("Failed to fetch users:", error);
       });
   }, []);
 
-  // Save users to localStorage
-  useEffect(() => {
-    if (users.length > 0) {
-      localStorage.setItem(
-        "users",
-        JSON.stringify(users)
+  // Add a new user
+  async function addUser(userData) {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
       );
+
+      if (!response.ok) {
+        throw new Error("Failed to create user");
+      }
+
+      const savedUser = await response.json();
+
+      setUsers((prevUsers) => [
+        ...prevUsers,
+        savedUser,
+      ]);
+
+      return savedUser;
+
+    } catch (error) {
+      console.error("Failed to create user:", error);
+      throw error;
     }
-  }, [users]);
+  }
+
+  // Update an existing user
+async function updateUser(id, userData) {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/users/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to update user");
+    }
+
+    const updatedUser = await response.json();
+
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user._id === id ? updatedUser : user
+      )
+    );
+
+    return updatedUser;
+
+  } catch (error) {
+    console.error("Failed to update user:", error);
+    throw error;
+  }
+}
+
+// Delete a user
+async function deleteUser(id) {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/users/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to delete user");
+    }
+
+    setUsers((prevUsers) =>
+      prevUsers.filter((user) => user._id !== id)
+    );
+
+  } catch (error) {
+    console.error("Failed to delete user:", error);
+    throw error;
+  }
+}
+
+
+// Mark user as paid
+async function markUserAsPaid(id) {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/users/${id}/pay`,
+      {
+        method: "PATCH",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to mark payment");
+    }
+
+    const updatedUser = await response.json();
+
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user._id === id ? updatedUser : user
+      )
+    );
+
+    return updatedUser;
+
+  } catch (error) {
+    console.error("Failed to mark payment:", error);
+    throw error;
+  }
+}
 
   return (
     <UserContext.Provider
       value={{
         users,
         setUsers,
+        addUser,
+        updateUser,
+        deleteUser,
+        markUserAsPaid
       }}
     >
       {children}

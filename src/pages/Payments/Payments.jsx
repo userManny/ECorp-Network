@@ -3,21 +3,21 @@ import "./Payments.css";
 import { useUsers } from "../../context/UserContext";
 
 function Payments() {
-  const { users, setUsers } = useUsers();
+  const { users, markUserAsPaid } = useUsers();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
 
   /*
-    For now, payment records are derived from users.
+    Payment records are derived from users.
 
-    Later:
-    GET /api/payments
-    will provide these records from MongoDB.
+    User payment information is stored in MongoDB
+    through the User model.
   */
   const payments = useMemo(() => {
     return users.map((user) => ({
-      id: user.id,
-      userId: user.id,
+      id: user._id,
+      userId: user._id,
       name: user.name,
       email: user.email,
       plan: user.plan,
@@ -29,10 +29,6 @@ function Payments() {
 
   /*
     Search + status filtering
-
-    useMemo is useful here because this is derived data.
-    When users/search/filter have not changed, React can
-    reuse the previous filtered result.
   */
   const filteredPayments = useMemo(() => {
     return payments.filter((payment) => {
@@ -50,14 +46,16 @@ function Payments() {
   }, [payments, searchTerm, statusFilter]);
 
 
-  function markAsPaid(userId) {
-    const updatedUsers = users.map((user) =>
-      user.id === userId
-        ? { ...user, paid: true }
-        : user
-    );
-
-    setUsers(updatedUsers);
+  // Mark payment as paid
+  async function handleMarkAsPaid(userId) {
+    try {
+      await markUserAsPaid(userId);
+    } catch (error) {
+      console.error(
+        "Failed to mark payment as paid:",
+        error
+      );
+    }
   }
 
 
@@ -75,20 +73,20 @@ function Payments() {
   return (
     <div className="payments-page">
 
-      {/* =================================================
-          PAGE HEADER
-          ================================================= */}
+      {/* PAGE HEADER */}
 
       <header className="payments-header">
 
         <div>
 
           <div className="ecorp-mark">
+
             <span>ECORP</span>
 
             <span className="ecorp-line"></span>
 
             <span>NETWORK-01</span>
+
           </div>
 
           <h1 className="payments-title">
@@ -104,7 +102,9 @@ function Payments() {
 
         <div className="payment-summary">
 
-          <span>PAYMENT RECORDS</span>
+          <span>
+            PAYMENT RECORDS
+          </span>
 
           <strong>
             {String(totalPayments).padStart(4, "0")}
@@ -115,33 +115,52 @@ function Payments() {
       </header>
 
 
-      {/* =================================================
-          PAYMENT SUMMARY
-          ================================================= */}
+      {/* PAYMENT SUMMARY */}
 
       <section className="payment-stats">
 
         <div className="payment-stat">
-          <span>ALL RECORDS</span>
-          <strong>{totalPayments}</strong>
+
+          <span>
+            ALL RECORDS
+          </span>
+
+          <strong>
+            {totalPayments}
+          </strong>
+
         </div>
+
 
         <div className="payment-stat paid-stat">
-          <span>PAID</span>
-          <strong>{paidPayments}</strong>
+
+          <span>
+            PAID
+          </span>
+
+          <strong>
+            {paidPayments}
+          </strong>
+
         </div>
 
+
         <div className="payment-stat pending-stat">
-          <span>PENDING</span>
-          <strong>{pendingPayments}</strong>
+
+          <span>
+            PENDING
+          </span>
+
+          <strong>
+            {pendingPayments}
+          </strong>
+
         </div>
 
       </section>
 
 
-      {/* =================================================
-          TOOLBAR
-          ================================================= */}
+      {/* TOOLBAR */}
 
       <section className="payments-toolbar">
 
@@ -156,7 +175,9 @@ function Payments() {
             type="text"
             placeholder="Search customers..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) =>
+              setSearchTerm(e.target.value)
+            }
           />
 
         </div>
@@ -170,10 +191,13 @@ function Payments() {
                 ? "payment-filter active"
                 : "payment-filter"
             }
-            onClick={() => setStatusFilter("all")}
+            onClick={() =>
+              setStatusFilter("all")
+            }
           >
             ALL
           </button>
+
 
           <button
             className={
@@ -181,10 +205,13 @@ function Payments() {
                 ? "payment-filter active"
                 : "payment-filter"
             }
-            onClick={() => setStatusFilter("paid")}
+            onClick={() =>
+              setStatusFilter("paid")
+            }
           >
             PAID
           </button>
+
 
           <button
             className={
@@ -192,7 +219,9 @@ function Payments() {
                 ? "payment-filter active"
                 : "payment-filter"
             }
-            onClick={() => setStatusFilter("pending")}
+            onClick={() =>
+              setStatusFilter("pending")
+            }
           >
             PENDING
           </button>
@@ -202,15 +231,14 @@ function Payments() {
       </section>
 
 
-      {/* =================================================
-          PAYMENT RECORDS
-          ================================================= */}
+      {/* PAYMENT RECORDS */}
 
       <section className="payments-section">
 
         <div className="payments-section-header">
 
           <div>
+
             <span className="section-index">
               01
             </span>
@@ -218,6 +246,7 @@ function Payments() {
             <span className="section-title">
               PAYMENT RECORDS
             </span>
+
           </div>
 
           <span className="record-count">
@@ -228,11 +257,13 @@ function Payments() {
 
 
         {/* Desktop table */}
+
         <div className="payments-table-wrapper">
 
           <table className="payments-table">
 
             <thead>
+
               <tr>
                 <th>CUSTOMER</th>
                 <th>PLAN</th>
@@ -240,7 +271,9 @@ function Payments() {
                 <th>STATUS</th>
                 <th>ACTION</th>
               </tr>
+
             </thead>
+
 
             <tbody>
 
@@ -249,6 +282,7 @@ function Payments() {
                 <tr key={payment.id}>
 
                   <td>
+
                     <div className="customer-cell">
 
                       <strong>
@@ -260,20 +294,26 @@ function Payments() {
                       </span>
 
                     </div>
+
                   </td>
 
 
                   <td>
+
                     <span className="plan-cell">
                       {payment.plan}
                     </span>
+
                   </td>
 
 
                   <td>
+
                     <strong className="amount-cell">
-                      ₹{payment.amount.toLocaleString("en-IN")}
+                      ₹
+                      {payment.amount.toLocaleString("en-IN")}
                     </strong>
+
                   </td>
 
 
@@ -304,7 +344,11 @@ function Payments() {
 
                       <button
                         className="mark-payment-btn"
-                        onClick={() => markAsPaid(payment.userId)}
+                        onClick={() =>
+                          handleMarkAsPaid(
+                            payment.userId
+                          )
+                        }
                       >
                         MARK AS PAID
                       </button>
