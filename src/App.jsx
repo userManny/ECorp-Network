@@ -1,84 +1,137 @@
-import {Routes, Route} from "react-router-dom"  // use React router links 
-import Users from  "./pages/Users/Users"
-import Dashboard from "./pages/Dashboard/Dashboard";
-import Navbar from "./Components/Navbar/Navbar";
-import { useEffect, useState } from "react";
-import usersData from "./data/dummyUsers";
-import PLAN_DETAILS from "./constants/plans";
+import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
+import Layout from "./Components/Layout/Layout";
+import LoadingScreen from "./Components/LoadingScreen/LoadingScreen";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import AdminRoute from "./Components/AdminRoute/AdminRoute";
+import { UserProvider } from "./context/UserContext";
+
+
+// Lazy-loaded pages
+const Login = lazy(() =>
+  import("./pages/Login/Login")
+);
+
+const Dashboard = lazy(() =>
+  import("./pages/Dashboard/Dashboard")
+);
+
+const Users = lazy(() =>
+  import("./pages/Users/Users")
+);
+
+const Plans = lazy(() =>
+  import("./pages/Plans/Plans")
+);
+
+const Payments = lazy(() =>
+  import("./pages/Payments/Payments")
+);
+
+const UserDetails = lazy(() =>
+  import("./pages/UserDetails/UserDetails")
+);
+
+const Settings = lazy(() =>
+  import("./pages/Settings/Settings")
+);
+
+const MyAccount = lazy(() =>
+  import("./pages/MyAccount/MyAccount")
+);
 
 
 function App() {
-const [users,setUsers] = useState([]);  // state user is lifted to App.jsx so that Users and Dashboard component can use it. they will create sepeate copies of state if we define it seperately 
+  return (
+    <UserProvider>
 
-const API_USE=true; // toggle it to use dummyData
+      <Suspense fallback={<LoadingScreen />}>
 
-useEffect(()=>{
+        <Routes>
 
-  const savedUsers=localStorage.getItem("users");  //
-  if(savedUsers){
-    const parsedUsers=JSON.parse(savedUsers); 
-    if(parsedUsers.length >0){
-       setUsers(parsedUsers);     // Batching in react
-       return;
-    }
-  
-  }
-
-if(API_USE===false){
-  setUsers(usersData);
-  return;
-}
-
-fetch("https://jsonplaceholder.typicode.com/users")
-.then(res=>res.json())
-.then(data=>{
- const userFromAPI= data.map((user)=>{
-  const plan=["Basic", "Premium", "Pro"][user.id %3]
-  const selectedPlan=PLAN_DETAILS[plan];
-
-  return{
-     id:user.id,
-     name:user.name,
-     email:user.email,
-     phone:user.phone,
-     plan:plan,
-     bill:selectedPlan.bill,
-     paid:user.id%2===0
-  }
-  
- })
- setUsers(userFromAPI);
-})
-.catch(()=>{
-  // use dummyData if API calls fails
-  setUsers(usersData)
-})
-},[])
-
-// to store data into localStorage if users is not empty
-useEffect(()=>{
-  if(users.length>0){ // this line is very important as fetch is asynchronous so js will not wait IT IS PREVENTING THE NEW USER TO NOT LOST AFTER REFRESH FROM LOCAL STORAGE 
-   localStorage.setItem("users",JSON.stringify(users));
-  }
-  
-},[users])
-
-return(
-  <>
-   <Navbar />
-
-  <Routes>
-    {/* default route */}
-    <Route path="/" element={<Dashboard users={users} />} />
-
-    <Route path="/dashboard" element={<Dashboard users={users} />} />
-     <Route path="/users" element={<Users users={users} setUsers={setUsers} />} />
+          {/* Login page */}
+          <Route
+            path="/login"
+            element={<Login />}
+          />
 
 
-  </Routes>
-  </>
-)
-  
+          {/* All logged-in users */}
+          <Route
+            element={
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            }
+          >
+
+            {/* Customer account */}
+            <Route
+              path="/my-account"
+              element={<MyAccount />}
+            />
+
+
+            {/* Admin-only routes */}
+            <Route element={<AdminRoute />}>
+
+              {/* Dashboard */}
+              <Route
+                path="/"
+                element={<Dashboard />}
+              />
+
+              <Route
+                path="/dashboard"
+                element={<Dashboard />}
+              />
+
+
+              {/* Users */}
+              <Route
+                path="/users"
+                element={<Users />}
+              />
+
+
+              {/* Dynamic User Details */}
+              <Route
+                path="/users/:id"
+                element={<UserDetails />}
+              />
+
+
+              {/* Plans */}
+              <Route
+                path="/plans"
+                element={<Plans />}
+              />
+
+
+              {/* Payments */}
+              <Route
+                path="/payments"
+                element={<Payments />}
+              />
+
+
+              {/* Settings */}
+              <Route
+                path="/settings"
+                element={<Settings />}
+              />
+
+            </Route>
+
+          </Route>
+
+        </Routes>
+
+      </Suspense>
+
+    </UserProvider>
+  );
 }
 
 export default App;

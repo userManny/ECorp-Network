@@ -1,24 +1,257 @@
-.add-user-form{
-    width: 350px;
-    margin: 30px auto;
-    padding: 25px;
+/* =========================================================
+   ECORP USER FORM
+   ========================================================= */
 
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.add-user-form {
+  display: grid;
 
-    background-color: #1a1a1a;
-    border: 1px solid #2a2a2a;
-    border-radius: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  gap: 20px;
+
+  padding: 25px;
+
+  background: #0d0d0d;
 }
 
-.input-title{
-    color:white
+
+/* =========================================================
+   FORM FIELD
+   ========================================================= */
+
+.form-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
 }
 
-.submit-btn{
-     background-color: #2563eb;
-    color: white;
+
+.form-field label {
+  color: var(--text-muted);
+
+  font-family: var(--font-mono);
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  letter-spacing: 1.5px;
+}
+
+
+.form-field input,
+.form-field select {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 12px 13px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-sm);
+
+  outline: none;
+
+  background: #111;
+
+  color: var(--text-primary);
+
+  font-family: var(--font-mono);
+
+  font-size: 12px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+/* Placeholder */
+
+.form-field input::placeholder {
+  color: #555;
+}
+
+
+/* Focus */
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: var(--red-dark);
+
+  background: #141414;
+
+  box-shadow:
+    0 0 12px var(--red-glow);
+}
+
+
+/* Select */
+
+.form-field select {
+  cursor: pointer;
+}
+
+
+.form-field select option {
+  background: #111;
+
+  color: white;
+}
+
+
+/* =========================================================
+   PLAN PREVIEW
+   ========================================================= */
+
+.plan-preview {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  grid-column: span 2;
+
+  padding: 15px 17px;
+
+  border: 1px solid var(--border);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(229, 9, 20, 0.05),
+      transparent
+    );
+}
+
+
+.plan-preview > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+
+.preview-label {
+  color: var(--text-muted);
+
+  font-family: var(--font-mono);
+
+  font-size: 8px;
+
+  letter-spacing: 1.5px;
+}
+
+
+.preview-value {
+  color: var(--red);
+
+  font-family: var(--font-mono);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+
+.preview-bill {
+  color: var(--text-primary);
+
+  font-family: var(--font-mono);
+
+  font-size: 16px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+.submit-btn {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  grid-column: span 2;
+
+  width: 100%;
+
+  padding: 13px 16px;
+
+  border: 1px solid var(--red);
+
+  border-radius: var(--radius-sm);
+
+  background: var(--red);
+
+  color: white;
+
+  font-family: var(--font-mono);
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.submit-btn:hover {
+  background: var(--red-bright);
+
+  box-shadow:
+    0 0 18px var(--red-glow);
+
+  transform: translateY(-1px);
+}
+
+
+.submit-arrow {
+  font-size: 18px;
+
+  line-height: 0;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .add-user-form {
+    grid-template-columns: 1fr;
+
+    padding: 20px;
+  }
+
+
+  .plan-preview {
+    grid-column: span 1;
+  }
+
+
+  .submit-btn {
+    grid-column: span 1;
+  }
 }
