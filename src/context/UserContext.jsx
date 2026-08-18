@@ -1,4 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
+console.log(
+  "API URL:",
+  import.meta.env.VITE_API_URL
+);
 
 const UserContext = createContext();
 
@@ -18,7 +22,7 @@ export function UserProvider({ children }) {
         const token = getToken();
 
         const response = await fetch(
-          "http://localhost:5000/api/users",
+          `${import.meta.env.VITE_API_URL}/api/users`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -61,7 +65,7 @@ export function UserProvider({ children }) {
       const token = getToken();
 
       const response = await fetch(
-        "http://localhost:5000/api/users",
+        `${import.meta.env.VITE_API_URL}/api/users`,
         {
           method: "POST",
           headers: {
@@ -104,7 +108,7 @@ export function UserProvider({ children }) {
       const token = getToken();
 
       const response = await fetch(
-        `http://localhost:5000/api/users/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/users/${id}`,
         {
           method: "PUT",
           headers: {
@@ -148,7 +152,7 @@ export function UserProvider({ children }) {
       const token = getToken();
 
       const response = await fetch(
-        `http://localhost:5000/api/users/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/users/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -188,7 +192,7 @@ export function UserProvider({ children }) {
       const token = getToken();
 
       const response = await fetch(
-        `http://localhost:5000/api/users/${id}/pay`,
+        `${import.meta.env.VITE_API_URL}/api/users/${id}/pay`,
         {
           method: "PATCH",
           headers: {
