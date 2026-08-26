@@ -10,6 +10,24 @@
 - 💻 [GitHub Repo](https://github.com/userManny/ECorp-Network)
 
 
+## 🔑 Demo Credentials
+
+Use the following credentials to explore the deployed application:
+
+### 👑 Admin Account
+- **Email:** `admin@ecorp.com`
+- **Password:** `admin123`
+
+### 👤 Customer Account
+- **Email:** `arvind1997@gmail.com`
+- **Password:** `user123`
+
+> **Note:** These are demo accounts provided for testing the deployed application.
+
+---
+---
+
+
 ---
 ---
 
