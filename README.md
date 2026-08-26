@@ -25,11 +25,6 @@ Use the following credentials to explore the deployed application:
 > **Note:** These are demo accounts provided for testing the deployed application.
 
 ---
----
-
-
----
----
 
 ## 📸 Preview
 
